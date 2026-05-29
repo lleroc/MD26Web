@@ -37,7 +37,7 @@ public class RespuestasController : Controller
     public async Task<IActionResult> Create(EncuestasViewModel encuestas)
     {
         if (encuestas == null || encuestas.ListaPreguntas == null 
-            || encuestas.ListaPreguntas.Any()) {
+            || !encuestas.ListaPreguntas.Any()) {
 
             ModelState.AddModelError("", "No se recibieron respuestas");
             return View("Index", encuestas);
@@ -64,6 +64,18 @@ public class RespuestasController : Controller
     public IActionResult Gracias()
     {
         return View();
+    }
+    [HttpGet]
+    public async Task<IActionResult> Listar_Respuestas() {
+        var lista_respuestas = await _context.Respuestas
+            .Include(r => r.Preguntas)
+            .OrderBy(p => p.Preguntas.Orden)
+            .ThenByDescending(r=>r.Fecha_Registro)
+            .ToListAsync();
+        var repuestasAgrupadas = lista_respuestas
+            .GroupBy( r=> r.Preguntas.Enunciado ?? "Pregunta no encontrada")
+            .ToList();
+        return View(repuestasAgrupadas);
     }
 
    

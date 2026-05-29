@@ -1,0 +1,92 @@
+﻿@model IEnumerable<IGrouping<string,Encuesta_MVC.Models.Respuestas>>
+
+@{
+    ViewData["Title"] = "Respueestas de preguntas";
+}
+
+<h1>Lista de respuestas</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No existen respuestas
+    </div>    
+
+}
+else
+{
+    @foreach (var grupo in Model)
+    {
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+                  <h5 class="mb-0">@grupo.Key</h5>
+            </div>
+
+            <div class="card-body">
+                <p>
+                    <strong>Total de Respuestas:</strong>
+                    <span class="badge bg-success">@grupo.Count()</span>
+                </p>
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-striped aling-middle">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Respuesta</th>
+                                <th>fecha</th>
+                             </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int numero = 1;
+                            }
+                            @foreach (var fila in grupo)
+                            {
+                                <tr>
+                                    <td>@numero </td>
+                                    <td>@fila.Respuesta </td>
+                                    <td>@fila.Fecha_Registro.ToString("dd/MM/yyyy HH:mm") </td>
+
+                                </tr>
+                                numero++;
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    }
+     
+   
+}
+@* 
+
+
+ <table class="table table-bordered table-responsive table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Pregunta</th>
+                <th>Respuesta</th>
+                <th>Fecha de respuesta</th>
+            </tr>
+        </thead>
+        <tbody>
+
+@foreach (var fila in Model)
+            {
+                <tr>
+                    <td>@numero</td>
+                    <td>@fila.Preguntas.Enunciado</td>
+                    <td>@fila.Respuesta</td>
+                    <td>@fila.Fecha_Registro</td>
+                </tr>
+                numero++;
+            }
+        </tbody>
+    </table>
+ *@
