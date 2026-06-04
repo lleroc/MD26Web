@@ -47,18 +47,18 @@ function mostrarPreguntas(listaPreguntas) {
 
         div.innerHTML =
             "<label class='form-label'>" +
-            "<strong>" + (index + 1) + ". " + escapeHtml(enunciado) + "</strong>" +
+            "<strong>" + (index + 1) + ". " + enunciado+ "</strong>" +
             "</label>" +
 
             (descripcion
-                ? "<p class='text-muted'>" + escapeHtml(descripcion) + "</p>"
+                ? "<p class='text-muted'>" + descripcion + "</p>"
                 : "") +
 
             "<input type='text' " +
             "class='form-control respuesta' " +
             "data-id='" + preguntaId + "' " +
-            "data-enunciado='" + escapeHtml(enunciado) + "' " +
-            "data-descripcion='" + escapeHtml(descripcion ?? "") + "' " +
+            "data-enunciado='" + (enunciado) + "' " +
+            "data-descripcion='" + (descripcion ?? "") + "' " +
             "placeholder='Escriba su respuesta' />";
 
         console.log(div);
