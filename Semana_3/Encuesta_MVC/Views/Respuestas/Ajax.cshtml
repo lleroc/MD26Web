@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Responder cuestionario con javascript";
+}
+<h1>Encuesta con Ajax</h1>
+
+<div id="mensaje" class="alert d-none">
+
+</div>
+
+<form id="formEncuesta">
+    <div id="contenedorPreguntas">
+        <p>Cargando Preguntas...</p>
+    </div>
+
+    <button type="submit" class="btn btn-outline-success">
+        Guardar Respuestas
+    </button>
+</form>
+
+@section Scripts{
+    <script>
+        cargaPreguntas();
+    </script>
+}

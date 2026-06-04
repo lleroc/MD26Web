@@ -13,6 +13,9 @@ public class RespuestasController : Controller
         _context = context;
     }
 
+    public IActionResult Ajax() {
+        return View();
+    }
     // GET: RESPUESTASS
     public async Task<IActionResult> Index()
     {
@@ -30,6 +33,28 @@ public class RespuestasController : Controller
             ListaPreguntas = preguntas
         };
         return View(encuesta);
+    }
+    public async Task<IActionResult> Lista_preguntas()
+    {
+        var preguntas = await _context.Preguntas.OrderBy(p => p.Orden)
+            .Select(p => new PreguntasViewModel
+            {
+                PrreguntasId = p.id,
+                Descripcion = p.Descipcion,
+                Enunciado = p.Enunciado,
+                Respuesta = ""
+            }).ToListAsync();
+
+        var encuesta = new EncuestasViewModel
+        {
+            ListaPreguntas = preguntas
+        };
+
+        return Json(new
+        {
+            ok = true,
+            data = encuesta
+        });
     }
 
     [HttpPost]
