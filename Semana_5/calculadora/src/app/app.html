@@ -1,0 +1,45 @@
+<div class="contedor">
+  <mat-card class="calculadora">
+    <mat-card-title>Calculadora</mat-card-title>
+    <mat-card-subtitle>Angular + Material</mat-card-subtitle>
+  </mat-card>
+  <mat-card-content>
+    <div class="pantalla">
+      {{pantalla}}
+    </div>
+
+    <div class="botones">
+      <button mat-raised-button color="warm" (click)="limpiar">C</button>
+      <button mat-raised-button color="warm" (click)="limpiar">CE</button>
+      <button mat-raised-button color="warm" (click)="limpiar">%</button>
+
+      <button mat-raised-button color="warm" (click)="borar_ultimo">
+        <--  
+      </button>
+
+      <!--numeros   -->
+      <button mat-raised-button color="warm" (click)="presionaNumero('7')">7</button>
+      <button mat-raised-button color="warm" (click)="presionaNumero('8')">8</button>
+      <button mat-raised-button color="warm" (click)="presionaNumero('9')">9</button>
+      <button mat-raised-button color="warm" (click)="presionaOperador('/')">/</button>
+
+      <button mat-raised-button color="warm" (click)="presionaNumero('4')">4</button>
+      <button mat-raised-button color="warm" (click)="presionaNumero('5')">5</button>
+      <button mat-raised-button color="warm" (click)="presionaNumero('6')">6</button>
+      <button mat-raised-button color="warm" (click)="presionaOperador('*')">*</button>
+
+      <button mat-raised-button color="warm" (click)="presionaNumero('1')">1</button>
+      <button mat-raised-button color="warm" (click)="presionaNumero('2')">2</button>
+      <button mat-raised-button color="warm" (click)="presionaNumero('3')">3</button>
+      <button mat-raised-button color="warm" (click)="presionaOperador('-')">-</button>
+
+      <button mat-raised-button color="warm" (click)="presionaNumero('0')">0</button>
+      <button mat-raised-button color="warm" (click)="presionaDecimal()">.</button>
+      <button mat-raised-button color="warm" (click)="obtenerResultado()">=</button>
+      <button mat-raised-button color="warm" (click)="presionaOperador('+')">+</button>
+
+    </div>
+
+  </mat-card-content>
+  
+</div>
