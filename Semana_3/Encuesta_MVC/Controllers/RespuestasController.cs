@@ -86,6 +86,52 @@ public class RespuestasController : Controller
 
         return RedirectToAction("Gracias");
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Guadar([FromBody] EncuestasViewModel encuestas)
+    {
+        if (encuestas == null || encuestas.ListaPreguntas == null
+            || !encuestas.ListaPreguntas.Any())
+        {
+            return Json(
+                new
+                {
+                    ok = false,
+                    mensaje = "No se recibieron resuesta"
+                });
+        }
+        var respuestas = encuestas.ListaPreguntas
+            .Where(p => !string.IsNullOrWhiteSpace(p.Respuesta))
+            .Select(P => new Respuestas
+            {
+                Fecha_Registro = DateTime.Now,
+                PreguntasId = P.PrreguntasId,
+                Respuesta = P.Respuesta
+            }).ToList();
+
+        if (!respuestas.Any())
+        {
+            return Json(
+                new
+                {
+                    ok = false,
+                    mensaje = "Se debe respoder al menos una pregunta"
+                });
+        }
+        _context.Respuestas.AddRange(respuestas);
+        await _context.SaveChangesAsync();
+
+        return Json(
+                new
+                {
+                    ok = true,
+                    mensaje = "Se guardo con exito"
+                });
+    }
+
+
+
     public IActionResult Gracias()
     {
         return View();

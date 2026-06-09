@@ -1,5 +1,22 @@
-﻿let listaPreguntas = [];
+﻿// $.ready(
+//     () => {
+//         cargaPreguntas()
+//     }
+// )
 
+
+// var cargaPreguntas = () => {
+//     var clasePreguntas = new Preguntas_Clase("")
+//     clasePreguntas.lista_preguntas()
+// }
+let listaPreguntas = [];
+document.addEventListener("DOMContentLoaded", function () {
+    cargaPreguntas()
+
+    document.getElementById("btnGuardar").addEventListener("click", function () {
+        guardarRespuestas();
+    })
+});
 async function cargaPreguntas() {
     
     try {
@@ -49,11 +66,10 @@ function mostrarPreguntas(listaPreguntas) {
             "<label class='form-label'>" +
             "<strong>" + (index + 1) + ". " + enunciado+ "</strong>" +
             "</label>" +
-
+        "<input type='hidden' class='pregunta_id' value=" + preguntaId + " />"+
             (descripcion
                 ? "<p class='text-muted'>" + descripcion + "</p>"
                 : "") +
-
             "<input type='text' " +
             "class='form-control respuesta' " +
             "data-id='" + preguntaId + "' " +
@@ -65,4 +81,52 @@ function mostrarPreguntas(listaPreguntas) {
 
         contenedorPreguntas.appendChild(div);
     });
+}
+async function guardarRespuestas() {
+    const token = document.querySelector("input[name='__RequestVerificationToken']").value;
+
+    const filas = document.querySelectorAll("#contenedorPreguntas .mb-4")
+
+    const listaPreguntas = []
+
+    filas.forEach(fila => {
+        const prreguntasId = fila.querySelector(".pregunta_id").value;
+        const respuesta = fila.querySelector(".respuesta").value;
+        listaPreguntas.push({
+            PrreguntasId: parseInt(prreguntasId),
+            respuesta: respuesta
+        });
+    });
+
+    const datos = {
+        listaPreguntas: listaPreguntas
+    }
+    try {
+        const respuesta = await fetch("/Respuestas/Guadar", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                //'RequestVerificationToken':token    
+            },
+            body: JSON.stringify(datos)
+        })
+
+        const resultado = respuesta.json()
+        if (resultado.ok) {
+            const mensaje = document.getElementById("mensaje")
+            mensaje.className = "alert alert-success"
+            mensaje.textContent = resultado.mensaje
+            mensaje.classList.remove("d-none")
+        } else {
+            const mensaje = document.getElementById("mensaje")
+            mensaje.className = "alert alert-danger"
+            mensaje.textContent = resultado.mensaje
+            mensaje.classList.remove("d-none")
+        }
+
+    } catch (e) {
+
+    }
+
+
 }

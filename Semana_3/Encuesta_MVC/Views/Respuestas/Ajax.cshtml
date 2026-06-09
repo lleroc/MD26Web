@@ -2,6 +2,7 @@
     ViewData["Title"] = "Responder cuestionario con javascript";
 }
 <h1>Encuesta con Ajax</h1>
+ @Html.AntiForgeryToken() 
 
 <div id="mensaje" class="alert d-none">
 
@@ -12,13 +13,8 @@
         <p>Cargando Preguntas...</p>
     </div>
 
-    <button type="submit" class="btn btn-outline-success">
+    <button id="btnGuardar" type="submit" class="btn btn-outline-success">
         Guardar Respuestas
     </button>
 </form>
 
-@section Scripts{
-    <script>
-        cargaPreguntas();
-    </script>
-}
