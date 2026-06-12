@@ -1,0 +1,50 @@
+<div class="container my-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Listado de Preguntas</h5>
+                <button class="btn btn-light btn-sm"><i class="bi bi-plus-lg"></i> Nueva Pregunta</button>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped mb-0 align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col" style="width: 5%;">ID</th>
+                                <th scope="col" style="width: 10%;">Orden</th>
+                                <th scope="col" style="width: 35%;">Enunciado</th>
+                                <th scope="col" style="width: 35%;">Descripción</th>
+                                <th scope="col" style="width: 5%;">Peso</th>
+                                <th scope="col" style="width: 10%;" class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(lista.length > 0){
+                                @for(pregunta of lista; track pregunta.id; ){
+                                    <tr>
+                                        <th scope="row" class="text-muted">{{ pregunta.id}}</th>
+                                        <td><span class="badge bg-secondary">{{pregunta.orden}}</span></td>
+                                        <td class="fw-bold">{{ pregunta.enunciado }}</td>
+                                        <td class="text-secondary">{{ pregunta.descripcion }}</td>
+                                        <td><span class="badge bg-info text-dark">{{ pregunta.peso }}</span></td>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-outline-warning btn-sm" title="Editar"><i class="bi bi-pencil"></i></button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                               
+                            }@else{
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">
+                                        No hay Preguntas
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>

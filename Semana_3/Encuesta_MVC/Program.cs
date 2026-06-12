@@ -7,6 +7,15 @@ var cn = builder.Configuration.GetConnectionString("cn");
 
 builder.Services.AddDbContext<EncuestasDBContext>(op => op.UseSqlServer(cn));
 
+builder.Services.AddCors(
+    (opciones) => {
+        opciones.AddPolicy("todos", politica =>
+        {
+            politica.AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyMethod();
+        });
+    });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -19,7 +28,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseCors("todos");
 app.UseHttpsRedirection();
 app.UseRouting();
 
